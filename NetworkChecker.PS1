@@ -26,7 +26,7 @@ function Update-Progress {
     param($stepName)
     $script:currentStep++
     $percent = [math]::Round(($script:currentStep / $totalSteps) * 100)
-    Write-Progress -Activity "Scanning Network Settings" -Status $stepName -PercentComplete $percent -ForegroundColor Cyan
+    Write-Progress -Activity "Scanning Network Settings" -Status $stepName -PercentComplete $percent
 }
 
 # ═══════════════════════════════════════════════════════════════════
