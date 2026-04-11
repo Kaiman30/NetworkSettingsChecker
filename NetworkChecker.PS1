@@ -211,76 +211,61 @@ if ($qosValue -and $qosValue.NonBestEffortLimit -in @(80,90)) {
 # ═══════════════════════════════════════════════════════════════════
 # FINALIZE PROGRESS
 # ═══════════════════════════════════════════════════════════════════
-Update-Progress "Finalizing..."
+Update-Progress "Завершение..."
 Start-Sleep -Milliseconds 300
-Write-Progress -Activity "Scanning Network Settings" -Completed
+Write-Progress -Activity "Сканирование настроек сети" -Completed
 
-# ═══════════════════════════════════════════════════════════════════
-# SUMMARY OUTPUT
-# ═══════════════════════════════════════════════════════════════════
-Clear-Host
+# # ═══════════════════════════════════════════════════════════════════
+# # SUMMARY OUTPUT
+# # ═══════════════════════════════════════════════════════════════════
+# Clear-Host
 
-Write-Host "`n╔═════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║              SUMMARY            ║" -ForegroundColor Cyan
-Write-Host "╚═════════════════════════════════╝" -ForegroundColor Cyan
+# Write-Host "`n╔═════════════════════════════════╗" -ForegroundColor Cyan
+# Write-Host "║              SUMMARY            ║" -ForegroundColor Cyan
+# Write-Host "╚═════════════════════════════════╝" -ForegroundColor Cyan
 
-Write-Host "`n  OPTIMIZED SETTINGS:" -ForegroundColor Green
-if ($results.Passed.Count -gt 0) {
-    foreach ($item in $results.Passed | Sort-Object) {
-        Write-Host "    ✓ $item" -ForegroundColor Green
-    }
-} else {
-    Write-Host "    None" -ForegroundColor DarkGray
-}
+# Write-Host "`n  OPTIMIZED SETTINGS:" -ForegroundColor Green
+# if ($results.Passed.Count -gt 0) {
+#     foreach ($item in $results.Passed | Sort-Object) {
+#         Write-Host "    ✓ $item" -ForegroundColor Green
+#     }
+# } else {
+#     Write-Host "    None" -ForegroundColor DarkGray
+# }
 
-Write-Host "`n  FAILED / DEFAULT SETTINGS:" -ForegroundColor Red
-if ($results.Failed.Count -gt 0) {
-    foreach ($item in $results.Failed | Sort-Object) {
-        Write-Host "    ✗ $item" -ForegroundColor Red
-    }
-} else {
-    Write-Host "    None" -ForegroundColor DarkGray
-}
+# Write-Host "`n  FAILED / DEFAULT SETTINGS:" -ForegroundColor Red
+# if ($results.Failed.Count -gt 0) {
+#     foreach ($item in $results.Failed | Sort-Object) {
+#         Write-Host "    ✗ $item" -ForegroundColor Red
+#     }
+# } else {
+#     Write-Host "    None" -ForegroundColor DarkGray
+# }
 
-Write-Host "`n  ⚠ BAN-RISK SETTINGS DETECTED:" -ForegroundColor DarkRed
-if ($results.BanRisks.Count -gt 0) {
-    foreach ($item in $results.BanRisks | Sort-Object) {
-        Write-Host "    ⚠ $item" -ForegroundColor DarkRed
-    }
-} else {
-    Write-Host "    None" -ForegroundColor DarkGray
-}
+# Write-Host "`n  ⚡ WARNINGS:" -ForegroundColor Yellow
+# if ($results.Warnings.Count -gt 0) {
+#     foreach ($item in $results.Warnings | Sort-Object) {
+#         Write-Host "    ! $item" -ForegroundColor Yellow
+#     }
+# } else {
+#     Write-Host "    None" -ForegroundColor DarkGray
+# }
 
-Write-Host "`n  ⚡ WARNINGS:" -ForegroundColor Yellow
-if ($results.Warnings.Count -gt 0) {
-    foreach ($item in $results.Warnings | Sort-Object) {
-        Write-Host "    ! $item" -ForegroundColor Yellow
-    }
-} else {
-    Write-Host "    None" -ForegroundColor DarkGray
-}
-
-# ═══════════════════════════════════════════════════════════════════
-# FINAL SCORE
-# ═══════════════════════════════════════════════════════════════════
 $totalChecks = $results.Passed.Count + $results.Failed.Count
 $passedCount = $results.Passed.Count
 $failedCount = $results.Failed.Count
-$banRiskCount = $results.BanRisks.Count
 
 Write-Host "`n╔════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
-Write-Host "║                    FINAL SCORE                             ║" -ForegroundColor Cyan
+Write-Host "║                        Отчет                               ║" -ForegroundColor Cyan
 Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
 
-Write-Host "`n  Passed: " -NoNewline -ForegroundColor White
-Write-Host "$passedCount" -ForegroundColor Green
-Write-Host "  Failed: " -NoNewline -ForegroundColor White
-Write-Host "$failedCount" -ForegroundColor Red
-Write-Host "  Ban-Risk: " -NoNewline -ForegroundColor White
-Write-Host "$banRiskCount" -ForegroundColor DarkRed
+Write-Host "`n  Провалено: " -NoNewline -ForegroundColor White
+Write-Host "$passedCount" -ForegroundColor Red
+Write-Host "  Пройдено: " -NoNewline -ForegroundColor White
+Write-Host "$failedCount" -ForegroundColor Green
 
 $scorePercent = if ($totalChecks -gt 0) { [math]::Round(($passedCount / $totalChecks) * 100) } else { 0 }
 Write-Host "  Score: " -NoNewline -ForegroundColor White
 Write-Host "$scorePercent%" -ForegroundColor $(if($scorePercent -ge 80){"Green"}elseif($scorePercent -ge 50){"Yellow"}else{"Red"})
 
-Write-Host "`nCheck Complete, hit up discord: lncl.dll if u run into any issues" -ForegroundColor Cyan
+Write-Host "`nПроверка выполнена" -ForegroundColor Cyan
