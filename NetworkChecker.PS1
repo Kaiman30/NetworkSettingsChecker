@@ -215,41 +215,41 @@ Update-Progress "Завершение..."
 Start-Sleep -Milliseconds 300
 Write-Progress -Activity "Сканирование настроек сети" -Completed
 
-# # ═══════════════════════════════════════════════════════════════════
-# # SUMMARY OUTPUT
-# # ═══════════════════════════════════════════════════════════════════
-# Clear-Host
+# ═══════════════════════════════════════════════════════════════════
+# SUMMARY OUTPUT
+# ═══════════════════════════════════════════════════════════════════
+Clear-Host
 
-# Write-Host "`n╔═════════════════════════════════╗" -ForegroundColor Cyan
-# Write-Host "║              SUMMARY            ║" -ForegroundColor Cyan
-# Write-Host "╚═════════════════════════════════╝" -ForegroundColor Cyan
+Write-Host "`n╔═════════════════════════════════╗" -ForegroundColor Cyan
+Write-Host "║              SUMMARY            ║" -ForegroundColor Cyan
+Write-Host "╚═════════════════════════════════╝" -ForegroundColor Cyan
 
-# Write-Host "`n  OPTIMIZED SETTINGS:" -ForegroundColor Green
-# if ($results.Passed.Count -gt 0) {
-#     foreach ($item in $results.Passed | Sort-Object) {
-#         Write-Host "    ✓ $item" -ForegroundColor Green
-#     }
-# } else {
-#     Write-Host "    None" -ForegroundColor DarkGray
-# }
+Write-Host "`n  OPTIMIZED SETTINGS:" -ForegroundColor Green
+if ($results.Passed.Count -gt 0) {
+    foreach ($item in $results.Passed | Sort-Object) {
+        Write-Host "    ✓ $item" -ForegroundColor Green
+    }
+} else {
+    Write-Host "    None" -ForegroundColor DarkGray
+}
 
-# Write-Host "`n  FAILED / DEFAULT SETTINGS:" -ForegroundColor Red
-# if ($results.Failed.Count -gt 0) {
-#     foreach ($item in $results.Failed | Sort-Object) {
-#         Write-Host "    ✗ $item" -ForegroundColor Red
-#     }
-# } else {
-#     Write-Host "    None" -ForegroundColor DarkGray
-# }
+Write-Host "`n  FAILED / DEFAULT SETTINGS:" -ForegroundColor Red
+if ($results.Failed.Count -gt 0) {
+    foreach ($item in $results.Failed | Sort-Object) {
+        Write-Host "    ✗ $item" -ForegroundColor Red
+    }
+} else {
+    Write-Host "    None" -ForegroundColor DarkGray
+}
 
-# Write-Host "`n  ⚡ WARNINGS:" -ForegroundColor Yellow
-# if ($results.Warnings.Count -gt 0) {
-#     foreach ($item in $results.Warnings | Sort-Object) {
-#         Write-Host "    ! $item" -ForegroundColor Yellow
-#     }
-# } else {
-#     Write-Host "    None" -ForegroundColor DarkGray
-# }
+Write-Host "`n  ⚡ WARNINGS:" -ForegroundColor Yellow
+if ($results.Warnings.Count -gt 0) {
+    foreach ($item in $results.Warnings | Sort-Object) {
+        Write-Host "    ! $item" -ForegroundColor Yellow
+    }
+} else {
+    Write-Host "    None" -ForegroundColor DarkGray
+}
 
 $totalChecks = $results.Passed.Count + $results.Failed.Count
 $passedCount = $results.Passed.Count
