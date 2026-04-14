@@ -238,12 +238,5 @@ if ($results.Passed.Count -gt 0) {
 
 Write-Host "  Пройдено: " -NoNewline -ForegroundColor White
 Write-Host "$failedCount" -ForegroundColor Green
-if ($results.Failed.Count -gt 0) {
-    foreach ($item in $results.Failed | Sort-Object) {
-        Write-Host "    - $item" -ForegroundColor Green
-    }
-} else {
-    Write-Host "    Пусто" -ForegroundColor DarkGray
-}
 
 Write-Host "`nПроверка выполнена" -ForegroundColor Cyan
