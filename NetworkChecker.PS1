@@ -218,40 +218,7 @@ Write-Progress -Activity "Сканирование настроек сети" -C
 # ═══════════════════════════════════════════════════════════════════
 # SUMMARY OUTPUT
 # ═══════════════════════════════════════════════════════════════════
-Clear-Host
 
-# Write-Host "`n╔═════════════════════════════════╗" -ForegroundColor Cyan
-# Write-Host "║              SUMMARY            ║" -ForegroundColor Cyan
-# Write-Host "╚═════════════════════════════════╝" -ForegroundColor Cyan
-
-# Write-Host "`n  OPTIMIZED SETTINGS:" -ForegroundColor Green
-# if ($results.Passed.Count -gt 0) {
-#     foreach ($item in $results.Passed | Sort-Object) {
-#         Write-Host "    ✓ $item" -ForegroundColor Green
-#     }
-# } else {
-#     Write-Host "    None" -ForegroundColor DarkGray
-# }
-
-# Write-Host "`n  FAILED / DEFAULT SETTINGS:" -ForegroundColor Red
-# if ($results.Failed.Count -gt 0) {
-#     foreach ($item in $results.Failed | Sort-Object) {
-#         Write-Host "    ✗ $item" -ForegroundColor Red
-#     }
-# } else {
-#     Write-Host "    None" -ForegroundColor DarkGray
-# }
-
-# Write-Host "`n  ⚡ WARNINGS:" -ForegroundColor Yellow
-# if ($results.Warnings.Count -gt 0) {
-#     foreach ($item in $results.Warnings | Sort-Object) {
-#         Write-Host "    ! $item" -ForegroundColor Yellow
-#     }
-# } else {
-#     Write-Host "    None" -ForegroundColor DarkGray
-# }
-
-$totalChecks = $results.Passed.Count + $results.Failed.Count
 $passedCount = $results.Passed.Count
 $failedCount = $results.Failed.Count
 
@@ -261,11 +228,22 @@ Write-Host "╚═════════════════════�
 
 Write-Host "`n  Провалено: " -NoNewline -ForegroundColor White
 Write-Host "$passedCount" -ForegroundColor Red
+if ($results.Passed.Count -gt 0) {
+    foreach ($item in $results.Passed | Sort-Object) {
+        Write-Host "    - $item" -ForegroundColor Red
+    }
+} else {
+    Write-Host "    Пусто" -ForegroundColor DarkGray
+}
+
 Write-Host "  Пройдено: " -NoNewline -ForegroundColor White
 Write-Host "$failedCount" -ForegroundColor Green
-
-$scorePercent = if ($totalChecks -gt 0) { [math]::Round(($passedCount / $totalChecks) * 100) } else { 0 }
-Write-Host "  Score: " -NoNewline -ForegroundColor White
-Write-Host "$scorePercent%" -ForegroundColor $(if($scorePercent -ge 80){"Green"}elseif($scorePercent -ge 50){"Yellow"}else{"Red"})
+if ($results.Failed.Count -gt 0) {
+    foreach ($item in $results.Failed | Sort-Object) {
+        Write-Host "    - $item" -ForegroundColor Green
+    }
+} else {
+    Write-Host "    Пусто" -ForegroundColor DarkGray
+}
 
 Write-Host "`nПроверка выполнена" -ForegroundColor Cyan
